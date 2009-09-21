@@ -34,8 +34,9 @@ public class RawUdpJingleClient extends Client {
 
         new RawUdpJingleClient(args[1], args[2], args[3], args[4]);
 
+        for(int i=0;i<1000;i++)
         try {
-            Thread.sleep(1000000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
