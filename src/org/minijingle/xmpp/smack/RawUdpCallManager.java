@@ -83,7 +83,7 @@ public class RawUdpCallManager implements PacketListener {
 
             inACall = true;
             remoteCandidate = jingle.getContent().getTransport().getCandidates().get(0);
-            mediaManager.startMedia(localCandidate, remoteCandidate, jingle.getContent().getDescription().getPayloads().get(0));
+            mediaManager.startMedia(localCandidate, remoteCandidate, mediaManager.getPayloads().get(0));
         }
 
     }
@@ -121,7 +121,7 @@ public class RawUdpCallManager implements PacketListener {
 
             System.out.println("Sent: " + acceptIQ.toXML());
 
-            mediaManager.startMedia(localCandidate, remoteCandidate, jingle.getContent().getDescription().getPayloads().get(0));
+            mediaManager.startMedia(localCandidate, remoteCandidate, localDescription.getPayloads().get(0));
 
             connection.sendPacket(acceptIQ);
 
