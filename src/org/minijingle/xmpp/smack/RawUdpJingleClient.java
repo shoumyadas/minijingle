@@ -1,11 +1,12 @@
 package org.minijingle.xmpp.smack;
 
-import org.jivesoftware.smack.provider.ProviderManager;
-import org.minijingle.jingle.Jingle;
+import org.minijingle.jingle.description.Payload;
 import org.minijingle.jingle.transport.Candidate;
 import org.minijingle.jingle.transport.RawUdpTransport;
-import org.minijingle.media.PJMediaManager;
+import org.minijingle.media.MediaManager;
 import org.minijingle.network.LocalIPResolver;
+
+import java.util.List;
 
 public class RawUdpJingleClient extends Client {
 
@@ -22,7 +23,19 @@ public class RawUdpJingleClient extends Client {
 
         JingleProvider.enableJingle(connection);
 
-        this.callManager = new RawUdpCallManager(connection, new PJMediaManager(), new RawUdpTransport(new Candidate(LocalIPResolver.getLocalIP(), "10002", "0")), jingleProxy);
+        this.callManager = new RawUdpCallManager(connection, new MediaManager() {
+            public void startMedia(Candidate local, Candidate remote, Payload payload) {
+
+            }
+
+            public void stopMedia() {
+
+            }
+
+            public List<Payload> getPayloads() {
+                return null;
+            }
+        }, new RawUdpTransport(new Candidate(LocalIPResolver.getLocalIP(), "10002", "0")), jingleProxy);
 
     }
 
@@ -34,12 +47,12 @@ public class RawUdpJingleClient extends Client {
 
         new RawUdpJingleClient(args[1], args[2], args[3], args[4]);
 
-        for(int i=0;i<1000;i++)
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        for (int i = 0; i < 1000; i++)
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
     }
